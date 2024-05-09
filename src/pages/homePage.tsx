@@ -48,15 +48,15 @@ const HomePage: React.FC = () => {
   };
 
   const movies = data ? data.results : [];
-  const displayedMovies = filterFunction(movies);
+  const upcomingmovie = filterFunction(movies);
 
 
 
   return (
     <>
       <PageTemplate
-      title="Discover Movies"
-      movies={displayedMovies}
+      title="Upcoming Movies"
+      movies={upcomingmovie}
       action={(movie: ListedMovie) => {
         return <AddToFavouritesIcon {...movie} />
       }}

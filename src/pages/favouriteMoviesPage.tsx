@@ -57,7 +57,7 @@ const FavouriteMoviesPage: React.FC = () => {
   const displayMovies = allFavourites
   ? filterFunction(allFavourites)
   : [];
-  const toDo = () => true;
+
 
   const changeFilterValues = (type: string, value: string) => {
     const changedFilter = { name: type, value: value };
@@ -74,8 +74,8 @@ const FavouriteMoviesPage: React.FC = () => {
         action={(movie) => {
           return (
             <>
-              <RemoveFromFavourites {...movie} />
-              <WriteReview {...movie} />
+              <RemoveFromFavourites genre_ids={[]} {...movie} />
+              <WriteReview genre_ids={[]} {...movie} />
             </>
           );
         }}
