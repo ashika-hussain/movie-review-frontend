@@ -15,6 +15,7 @@ export interface BaseMovie {
     revenue: number;
     vote_count: number;
     favourite?: boolean;
+    
   }
 
   export interface BaseMovieList { 
@@ -24,6 +25,10 @@ export interface BaseMovie {
     genres: {
       id: number;
       name: string;
+    }[];
+    production_countries:{
+        iso_3166_1:string;
+        name:string
     }[];
   }
   export interface MovieImage {
@@ -35,3 +40,8 @@ export interface BaseMovie {
     vote_count?: number;
     width?: number;
   }
+  export interface ListedMovie extends BaseMovie {
+    genre_ids: number[];
+  }
+
+  export type FilterOption = "title" | "genre";
