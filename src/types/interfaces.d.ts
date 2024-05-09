@@ -71,3 +71,11 @@ export interface BaseMovie {
     total_results: number;
     results: BaseMovie[];
   }
+
+  export interface Review {
+    author: string,
+    content: string,
+    agree: boolean,
+    rating: number,
+    movieId: number,
+  }
