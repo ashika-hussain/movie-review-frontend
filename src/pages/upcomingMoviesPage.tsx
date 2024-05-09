@@ -6,7 +6,7 @@ import useFiltering from "../hooks/useFiltering";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import MovieFilterUI, { genreFilter, titleFilter } from "../components/movieFilterUI";
-import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
+import {AddToPlayListIcon} from "../components/cardIcons/addToPlayLIstIcon";
 
 
 const titleFiltering = {
@@ -56,7 +56,7 @@ const UpcomingMoviesPage: React.FC= () => {
         title="Discover Movies"
         movies={displayedMovies}
         action={(movie: ListedMovie) => {
-          return <AddToFavouritesIcon {...movie} />
+          return <AddToPlayListIcon />
         }}
         />
         <MovieFilterUI
