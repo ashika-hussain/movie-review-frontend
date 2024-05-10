@@ -55,7 +55,7 @@ const HomePage: React.FC = () => {
   return (
     <>
       <PageTemplate
-      title="Upcoming Movies"
+      title="Discover Movies"
       movies={upcomingmovie}
       action={(movie: ListedMovie) => {
         return <AddToFavouritesIcon {...movie} />

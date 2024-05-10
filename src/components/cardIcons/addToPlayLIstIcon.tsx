@@ -6,12 +6,13 @@ import {ListedMovie} from "../../types/interfaces"
 
 
 
-export const AddToPlayListIcon: React.FC<ListedMovie> = (movie) => {
+const AddToPlayListIcon: React.FC<ListedMovie> = (movie) => {
     const context = useContext(MoviesContext);
   
     const onUserSelect = (e: MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      context.addToFavourites(movie);
+      context.addToPlaylist(movie);
+    
     };
     return (
       <IconButton aria-label="add to Playlist" onClick={onUserSelect}>
@@ -19,3 +20,5 @@ export const AddToPlayListIcon: React.FC<ListedMovie> = (movie) => {
       </IconButton>
     );
   };
+
+  export default AddToPlayListIcon;
