@@ -47,14 +47,14 @@ const UpcomingMoviesPage: React.FC= () => {
     };
   
     const movies = data ? data.results : [];
-    const displayedMovies = filterFunction(movies);
+    const upcomingMovies = filterFunction(movies);
   
   
     return (
         <>
         <PageTemplate
         title="Upcoming Movies"
-        movies={displayedMovies}
+        movies={upcomingMovies}
         action={(movie: ListedMovie) => {
           return <AddToPlayListIcon {...movie} />
         }}
