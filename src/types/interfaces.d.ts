@@ -47,6 +47,7 @@ export interface BaseMovie {
   export type FilterOption = "title" | "genre";
 
   export interface MovieListPageTemplateProps {
+    isSeries: boolean;
     movies: ListedMovie[];
     title: string;
     action: (m: MovieT) => void;
@@ -78,4 +79,57 @@ export interface BaseMovie {
     agree: boolean,
     rating: number,
     movieId: number,
+  }
+
+
+  //Series
+
+
+  interface BaseTVSeries {
+    adult: boolean;
+    backdrop_path: string;
+    first_air_date: string;
+    genre_ids: number[];
+    id: number;
+    name: string;
+    origin_country: string[];
+    original_language: string;
+    original_name: string;
+    overview: string;
+    popularity: number;
+    poster_path: string;
+    vote_average: number;
+    vote_count: number;
+  }
+
+  export interface ListedSeries extends BaseTVSeries {
+    genre_ids: number[];
+  }
+
+  export interface BaseTVSeriesList { 
+    movies: BaseTVSeries[];
+  }
+
+
+  export interface SeriesListPageTemplateProps {
+    movies: ListedSeries[];
+    title: string;
+    action: (m: SeriesT) => void;
+  }
+
+
+  export interface SeriesT extends BaseTVSeries {
+    genres: {
+      id: number;
+      name: string;
+    }[];
+  }
+
+
+
+  interface DiscoverSeries {
+    page: number;	
+    total_pages: number;
+    total_results: number;
+    results: BaseTVSeries[];
   }
