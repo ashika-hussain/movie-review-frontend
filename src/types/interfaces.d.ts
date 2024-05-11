@@ -135,3 +135,13 @@ export interface BaseMovie {
   }
 
 
+
+
+  export interface SeriesReview {
+    author: string,
+    content: string,
+    agree: boolean,
+    rating: number,
+    seriesId: number,
+  }
+

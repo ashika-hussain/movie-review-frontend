@@ -13,8 +13,8 @@ import Grid from "@mui/material/Grid";
 import img from '../../images/film-poster-placeholder.png';
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
-import { MoviesContext } from "../../contexts/moviesContext";
 import {  ListedSeries } from "../../types/interfaces";
+import { SeriessContext } from "../../contexts/seriesContext";
 
 const styles = {
   card: { maxWidth: 345 },
@@ -32,9 +32,9 @@ interface SeriesListProps {
 
 const SeriesCard: React.FC<SeriesListProps> = (props) => {
   const series = {...props.series, favourite: false};
-  const { seriesFavourites } = useContext(MoviesContext);
+  const { favourites } = useContext(SeriessContext);
   
-  if (seriesFavourites.find((id) => id === series.id)) 
+  if (favourites.find((id) => id === series.id)) 
     series.favourite = true;
  
   return (

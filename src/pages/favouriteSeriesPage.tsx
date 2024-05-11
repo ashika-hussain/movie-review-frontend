@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import PageTemplate from "../components/templateMovieListPage";
-import { MoviesContext } from "../contexts/moviesContext";
+import { SeriessContext } from "../contexts/seriesContext";
 import { useQueries } from "react-query";
 import { getaTvSeries } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
@@ -19,6 +19,7 @@ const titleFiltering = {
   condition: titleFilter,
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const genreFiltering = {
   name: "genre",
   value: "0",
@@ -32,7 +33,7 @@ export const genreFiltering = {
 };
 
 const FavouriteSeriesPage: React.FC = () => {
-  const { seriesFavourites: seriesIds } = useContext(MoviesContext);
+  const { favourites: seriesIds } = useContext(SeriessContext);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering]
@@ -76,7 +77,7 @@ const FavouriteSeriesPage: React.FC = () => {
           return (
             <>
               <RemoveFromFavourites genre_ids={[]} {...series} />
-              <WriteReview genre_ids={[]} {...series} isSeries={true}/>
+              <WriteReview genre_ids={[]} {...series} isSeries= {true}/>
             </>
           );
         

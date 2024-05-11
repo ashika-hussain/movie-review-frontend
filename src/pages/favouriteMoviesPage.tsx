@@ -18,6 +18,7 @@ const titleFiltering = {
   condition: titleFilter,
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const genreFiltering = {
   name: "genre",
   value: "0",
@@ -31,7 +32,7 @@ export const genreFiltering = {
 };
 
 const FavouriteMoviesPage: React.FC = () => {
-  const { movieFavourites: movieIds } = useContext(MoviesContext);
+  const { favourites: movieIds } = useContext(MoviesContext);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering]
@@ -75,11 +76,10 @@ const FavouriteMoviesPage: React.FC = () => {
           return (
             <>
               <RemoveFromFavourites genre_ids={[]} {...movie} />
-              <WriteReview genre_ids={[]} {...movie} isSeries={false} />
+              <WriteReview genre_ids={[]} {...movie} isSeries= {false}/>
             </>
           );
         }}
-        isSeries = {false}
       />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}

@@ -32,9 +32,10 @@ interface MovieListProps {
 
 const MovieCard: React.FC<MovieListProps> = (props) => {
   const movie = {...props.movie, favourite: false};
-  const { movieFavourites , addToFavourites} = useContext(MoviesContext);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { favourites, addToFavourites } = useContext(MoviesContext);
   
-  if (movieFavourites.find((id) => id === movie.id)) 
+  if (favourites.find((id) => id === movie.id)) 
     movie.favourite = true;
  
   return (
