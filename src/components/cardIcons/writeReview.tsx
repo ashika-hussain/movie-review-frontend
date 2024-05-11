@@ -1,14 +1,18 @@
 import React from "react";
 import RateReviewIcon from "@mui/icons-material/RateReview";
-import {ListedMovie} from "../../types/interfaces";
+import {ListedMovie, ListedSeries} from "../../types/interfaces";
 import { Link } from "react-router-dom";
 
-const WriteReviewIcon:React.FC<ListedMovie> = (movie) => {
+
+type MediaType = ListedMovie | ListedSeries;
+
+const WriteReviewIcon:React.FC<MediaType & { isSeries: boolean }> = (item) => {
   return (
     <Link
     to={'/reviews/form'}
     state={{
-        movieId: movie.id,
+        itemId: item.id,
+        isSeries : item.isSeries
       }}
   >
     <RateReviewIcon color="primary" fontSize="large" />

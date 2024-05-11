@@ -58,7 +58,7 @@ const HomePage: React.FC = () => {
       title="Discover Movies"
       movies={displayedMovies}
       action={(movie: ListedMovie) => {
-        return <AddToFavouritesIcon {...movie} />
+        return <AddToFavouritesIcon {...movie} isSeries={false} />
       }}
       />
       <MovieFilterUI

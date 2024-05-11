@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../headerMovieList";
 import Grid from "@mui/material/Grid";
-import {  SeriesListPageTemplateProps} from "../../types/interfaces";
+import { SeriesListPageTemplateProps} from "../../types/interfaces";
 import SeriesList from "../seriesList";
 
 const styles = {
@@ -17,7 +17,7 @@ const SeriesListPageTemplate: React.FC<SeriesListPageTemplateProps> = (props)=> 
         <Header title={props.title} />
       </Grid>
       <Grid item container spacing={5}>
-      <SeriesList action={props.action} series={props.movies} />
+      <SeriesList action={props.action} series={props.series} />
       </Grid>
     </Grid>
   );

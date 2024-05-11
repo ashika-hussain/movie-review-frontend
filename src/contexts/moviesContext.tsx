@@ -1,52 +1,69 @@
 import React, { useState } from "react";
-import { ListedMovie, MovieT, Review} from "../types/interfaces";
+import { ListedMovie, ListedSeries, MovieT, Review, SeriesT} from "../types/interfaces";
+
+
+type MediaType = ListedMovie | ListedSeries;
 
 interface MovieContextInterface {
-    favourites: number[];
-    addToFavourites: ((movie: ListedMovie) => void);
-    removeFromFavourites: ((movie: ListedMovie) => void);
+    movieFavourites: number[];
+    seriesFavourites: number[],
+    addToFavourites: ((movie: MediaType, isSeries: boolean) => void);
+    removeFromFavourites: ((movie: MediaType) => void);
     addReview: ((movie: MovieT, review: Review) => void); 
     playlists : number[];
-    addToPlaylist : ((movie: ListedMovie) => void);
-    removeFromPlaylist :((movie: ListedMovie) => void);
+    addToPlaylist : ((movie: MediaType) => void);
+    removeFromPlaylist :((movie: MediaType) => void);
 }
 const initialContextState = {
-    favourites: [],
-    addToFavourites: (movie: ListedMovie) => {movie.id },
-    removeFromFavourites: (movie: ListedMovie) => { movie.id},
+    movieFavourites: [],
+    seriesFavourites: [],
+    addToFavourites: (movie: MediaType) => {movie.id },
+    removeFromFavourites: (movie: MediaType) => { movie.id},
     addReview: (movie, review) => { movie.id, review},
     playlists: [],
-    addToPlaylist: (movie: ListedMovie) => {movie.id },
-    removeFromPlaylist: (movie: ListedMovie) => { movie.id},
+    addToPlaylist: (movie: MediaType) => {movie.id },
+    removeFromPlaylist: (movie: MediaType) => { movie.id},
 };  
+
 
 
 export const MoviesContext = React.createContext<MovieContextInterface>(initialContextState);
 
 const MoviesContextProvider: React.FC<React.PropsWithChildren> = (props) => {
     const [myReviews, setMyReviews] = useState<Review[]>( [] ) 
-    const [favourites, setFavourites] = useState<number[]>([]);
+    const [movieFavourites, setMovieFavourites] = useState<number[]>([]);
     const [playlists, setPLaylists] = useState<number[]>([]);
+    const [seriesFavourites, setseriesFavourites] = useState<number[]>([]);
 
 
-    const addToFavourites = (movie: ListedMovie) => {
-        const updatedFavourites = [...favourites];
-        if (!favourites.includes(movie.id)) {
-            updatedFavourites.push(movie.id);
+    const addToFavourites = (movie: MediaType,isSeries: boolean) => {
+        const updatedMovieFavourites = [...movieFavourites];
+        const updatedSeriesFavourites = [...seriesFavourites];
+        if(isSeries){
+        if (!seriesFavourites.includes(movie.id)) {
+            updatedSeriesFavourites.push(movie.id);
         }
-        setFavourites(updatedFavourites);
+        setseriesFavourites(updatedSeriesFavourites);
+    }
+        else{
+        if (!movieFavourites.includes(movie.id)) {
+            updatedMovieFavourites.push(movie.id);
+        }
+        setMovieFavourites(updatedMovieFavourites);
+
+        }
     };
 
     // We will use this function in a later section
-    const removeFromFavourites = (movie: ListedMovie) => {
-        setFavourites(favourites.filter((mId) => mId !== movie.id));
+    const removeFromFavourites = (movie: MediaType) => {
+        setMovieFavourites(movieFavourites.filter((mId) => mId !== movie.id));
     };
 
-    const addReview = (movie: MovieT, review: Review) => {   // NEW
-        setMyReviews( {...myReviews, [movie.id]: review } )
+    const addReview = (item: MovieT | SeriesT, review: Review ) => {   // NEW
+        setMyReviews( {...myReviews, [item.id]: review } )
       };
 
-      const addToPlaylist = (movie: ListedMovie) => {
+      const addToPlaylist = (movie: MediaType) => {
         const updatedPlaylist = [...playlists];
         if (!playlists.includes(movie.id)) {
             updatedPlaylist.push(movie.id);
@@ -55,14 +72,15 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = (props) => {
         console.log(updatedPlaylist)
     };
 
-    const removeFromPlaylist = (movie: ListedMovie) => {
+    const removeFromPlaylist = (movie: MediaType) => {
         setPLaylists(playlists.filter((mId) => mId !== movie.id));
     };
 
     return (
         <MoviesContext.Provider
             value={{
-                favourites,
+                movieFavourites,
+                seriesFavourites,
                 addToFavourites,
                 removeFromFavourites,
                 addReview,

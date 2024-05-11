@@ -2,14 +2,15 @@ import React, {MouseEvent, useContext} from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import {ListedMovie} from "../../types/interfaces"
+import {ListedMovie, ListedSeries} from "../../types/interfaces"
 
-const AddToFavouritesIcon: React.FC<ListedMovie> = (movie) => {
+type MediaType = ListedMovie | ListedSeries;
+
+const AddToFavouritesIcon: React.FC<MediaType  & { isSeries: boolean }> = (item) => {
   const context = useContext(MoviesContext);
-
   const onUserSelect = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    context.addToFavourites(movie);
+    context.addToFavourites(item,item.isSeries);
   };
   return (
     <IconButton aria-label="add to favorites" onClick={onUserSelect}>

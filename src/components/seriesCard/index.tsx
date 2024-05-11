@@ -32,9 +32,9 @@ interface SeriesListProps {
 
 const SeriesCard: React.FC<SeriesListProps> = (props) => {
   const series = {...props.series, favourite: false};
-  const { favourites } = useContext(MoviesContext);
+  const { seriesFavourites } = useContext(MoviesContext);
   
-  if (favourites.find((id) => id === series.id)) 
+  if (seriesFavourites.find((id) => id === series.id)) 
     series.favourite = true;
  
   return (
@@ -79,7 +79,7 @@ const SeriesCard: React.FC<SeriesListProps> = (props) => {
       </CardContent>
       <CardActions disableSpacing>
       {props.action(series)}
-        <Link to={`/movies/${series.id}`}>
+        <Link to={`/series/${series.id}`}>
         <Button variant="outlined" size="medium" color="primary">
           More Info ...
         </Button>

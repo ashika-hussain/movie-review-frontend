@@ -3,7 +3,7 @@ import PageTemplate from "../components/templateSeriesListPage";
 import {getTvSeries } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
 
-import { ListedSeries } from "../types/interfaces";
+import { DiscoverSeries, ListedSeries } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import SeriesFilterUI, { genreFilter, titleFilter } from "../components/seriesFilterUI";
@@ -21,7 +21,7 @@ const genreFiltering = {
 };
 
 const TvSeriesPage: React.FC = () => {
-  const { data, error, isLoading, isError } = useQuery<ListedSeries, Error>("tvseries", getTvSeries);
+  const { data, error, isLoading, isError } = useQuery<DiscoverSeries, Error>("tvseries", getTvSeries);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering]
@@ -54,9 +54,9 @@ const TvSeriesPage: React.FC = () => {
     <>
       <PageTemplate
       title="Discover TV Series"
-      movies={displayedSeries}
-      action={(movie: ListedSeries) => {
-        return <AddToFavouritesIcon {...movie} />
+      series={displayedSeries}
+      action={(series: ListedSeries) => {
+        return <AddToFavouritesIcon {...series} isSeries={true} />
       }}
       />
       <SeriesFilterUI

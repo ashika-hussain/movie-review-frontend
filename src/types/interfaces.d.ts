@@ -47,7 +47,6 @@ export interface BaseMovie {
   export type FilterOption = "title" | "genre";
 
   export interface MovieListPageTemplateProps {
-    isSeries: boolean;
     movies: ListedMovie[];
     title: string;
     action: (m: MovieT) => void;
@@ -56,6 +55,7 @@ export interface BaseMovie {
     id: string;
     content: string
     author: string
+    isSeries : boolean
   }
 
 
@@ -112,7 +112,7 @@ export interface BaseMovie {
 
 
   export interface SeriesListPageTemplateProps {
-    movies: ListedSeries[];
+    series: ListedSeries[];
     title: string;
     action: (m: SeriesT) => void;
   }
@@ -133,3 +133,5 @@ export interface BaseMovie {
     total_results: number;
     results: BaseTVSeries[];
   }
+
+

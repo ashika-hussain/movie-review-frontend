@@ -2,15 +2,16 @@ import React, { useContext } from "react"
 import PageTemplate from "../components/templateMovieListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
-import { getMovie } from "../api/tmdb-api";
+import { getaTvSeries } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import useFiltering from "../hooks/useFiltering";
-import MovieFilterUI, {
+import  {
   titleFilter
-} from "../components/movieFilterUI";
-import { MovieT } from "../types/interfaces";
+} from "../components/seriesFilterUI";
+import { SeriesT } from "../types/interfaces";
 import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
 import WriteReview from "../components/cardIcons/writeReview";
+import SeriesFilterUI from "../components/seriesFilterUI";
 
 const titleFiltering = {
   name: "title",
@@ -21,40 +22,40 @@ const titleFiltering = {
 export const genreFiltering = {
   name: "genre",
   value: "0",
-  condition: function (movie: MovieT, value: string) {
+  condition: function (series: SeriesT, value: string) {
     // Is user selected genre in this movies's genre list? 
     // Always true if selected genre ia All (0).
     const genreId = Number(value);
-    const genre_ids = movie.genres.map((g) => g.id);
+    const genre_ids = series.genres.map((g) => g.id);
     return genreId > 0 ? genre_ids.includes(genreId) : true;
   },
 };
 
-const FavouriteMoviesPage: React.FC = () => {
-  const { movieFavourites: movieIds } = useContext(MoviesContext);
+const FavouriteSeriesPage: React.FC = () => {
+  const { seriesFavourites: seriesIds } = useContext(MoviesContext);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering]
   );
 
   // Create an array of queries and run them in parallel.
-  const favouriteMovieQueries = useQueries(
-    movieIds.map((movieId) => {
+  const favouriteSeriesQueries = useQueries(
+    seriesIds.map((seriesId) => {
       return {
-        queryKey: ["movie", movieId ],
-        queryFn: () => getMovie(movieId.toString()),
+        queryKey: ["series", seriesId ],
+        queryFn: () => getaTvSeries(seriesId.toString()),
       };
     })
   );
    // Check if any of the parallel queries is still loading.
-   const isLoading = favouriteMovieQueries.find((m) => m.isLoading === true);
+   const isLoading = favouriteSeriesQueries.find((m) => m.isLoading === true);
 
    if (isLoading) {
     return <Spinner />;
   }
 
-  const allFavourites = favouriteMovieQueries.map((q) => q.data);
-  const displayMovies = allFavourites
+  const allFavourites = favouriteSeriesQueries.map((q) => q.data);
+  const displayedSeries = allFavourites
   ? filterFunction(allFavourites)
   : [];
 
@@ -69,19 +70,19 @@ const FavouriteMoviesPage: React.FC = () => {
   return (
     <>
      <PageTemplate
-        title="Favourite Movies"
-        movies={displayMovies}
-        action={(movie) => {
+        title="Favourite Series"
+        movies={displayedSeries}
+        action={(series) => {
           return (
             <>
-              <RemoveFromFavourites genre_ids={[]} {...movie} />
-              <WriteReview genre_ids={[]} {...movie} isSeries={false} />
+              <RemoveFromFavourites genre_ids={[]} {...series} />
+              <WriteReview genre_ids={[]} {...series} isSeries={true}/>
             </>
           );
+        
         }}
-        isSeries = {false}
       />
-      <MovieFilterUI
+      <SeriesFilterUI
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
@@ -90,4 +91,4 @@ const FavouriteMoviesPage: React.FC = () => {
   );
 };
 
-export default FavouriteMoviesPage;
+export default FavouriteSeriesPage;
