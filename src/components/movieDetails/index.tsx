@@ -5,7 +5,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import MonetizationIcon from "@mui/icons-material/MonetizationOn";
 import StarRate from "@mui/icons-material/StarRate";
 import Typography from "@mui/material/Typography";
-import { MovieT } from "../../types/interfaces";
+import { CastMember, MovieT } from "../../types/interfaces";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
@@ -31,8 +31,13 @@ const styles = {
     },
 };
 
-const MovieDetails: React.FC<MovieT> = (props) => {
-  const movie=props;
+interface MovieDetailsProps {
+    movie: MovieT;
+    cast: CastMember[];
+  }
+
+const MovieDetails: React.FC<MovieDetailsProps> = (props) => {
+  const {movie, cast}=props;
   const [drawerOpen, setDrawerOpen] = useState(false); // New
 
     return (
@@ -66,6 +71,16 @@ const MovieDetails: React.FC<MovieT> = (props) => {
                     label={`${movie.vote_average} (${movie.vote_count}`}
                 />
                 <Chip label={`Released: ${movie.release_date}`} />
+            </Paper>
+            <Paper component="ul" sx={styles.chipSet}>
+                <li>
+                    <Chip label="Cast" sx={styles.chipLabel} color="primary" />
+                </li>
+                {cast && cast.map((g: CastMember) => (
+                    <li key={g.name}>
+                        <Chip label={g.name} />
+                    </li>
+                ))}
             </Paper>
             <Fab    
         color="secondary"

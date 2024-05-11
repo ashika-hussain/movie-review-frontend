@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { CastMember } from "../types/interfaces";
+
 export const getMovies = () => {
     return fetch(
       `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
@@ -135,17 +138,24 @@ export const getMovies = () => {
     };
 
 
-    const getMovieCredits = (id: string) => {
-      return fetch(`https://api.themoviedb.org/3//movie/${id}/credits?api_key=${import.meta.env.VITE_TMDB_KEY}`
-    ).then((response) => {
-      if (!response.ok)
-        throw new Error(`Unable to fetch movie credits. Response status: ${response.status}`);
-      return response.json();
-    })
-      .catch((error) => {
-        throw error
-      });
-  };
+    export const getMovieCast = (id: string): Promise<any> => {
+      return fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${import.meta.env.VITE_TMDB_KEY}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Unable to fetch movie credits. Response status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Extract cast members from the response
+          const cast: CastMember[] = data.cast;
+          return cast;
+        })
+        .catch((error) => {
+          throw error;
+        });
+    };
+    
 
 
   export const getTvSeriesReviews = (id: string | number) => {
