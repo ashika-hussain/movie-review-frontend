@@ -168,3 +168,26 @@ export const getMovies = () => {
         return json.results;
       });
   };
+
+  export const getActorDetails = (id: string | number) => {
+    return fetch(
+      `https://api.themoviedb.org/3/person/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`
+    )
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Failed to fetch actor details for ID ${id}`);
+        }
+        return res.json();
+      })
+      .then((json) => {
+        // Check if the JSON response contains actor details
+        if (json) {
+          return json;
+        } else {
+          throw new Error(`Actor details not found for ID ${id}`);
+        }
+      });
+  };
+  
+
+ 
