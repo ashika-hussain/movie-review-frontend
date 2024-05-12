@@ -3,6 +3,7 @@ import MovieDetails from "../components/movieDetails";
 import SampleMovie from "./sampleData";
 import { MemoryRouter } from "react-router";
 import MoviesContextProvider from "../contexts/moviesContext";
+import castData from './sampleCastMember';
 
 const meta = {
     title: "Movie Details Page/MovieDetails",
@@ -16,6 +17,9 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
-    args: SampleMovie
+    args: {movie: SampleMovie,
+        cast : castData
+    }
+
 };
 Basic.storyName = "Default";

@@ -1,5 +1,5 @@
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import MovieList from "../components/movieList";
 import SampleMovie from "./sampleData";
 import { MemoryRouter } from "react-router";
@@ -33,7 +33,7 @@ export const Basic = () => {
     <Grid container spacing={5}>
       <MovieList
         movies={movies}
-        action={(movie) => <AddToFavouritesIcon {...movie} />}
+        action={(movie) => <AddToFavouritesIcon {...movie}  isSeries={false}/>}
       />
     </Grid>
   );
