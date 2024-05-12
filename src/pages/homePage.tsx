@@ -11,6 +11,7 @@ import { DiscoverMovies, ListedMovie } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
+import Pagination from "../components/Pagination/indexx";
 
 const titleFiltering = {
   name: "title",
@@ -30,7 +31,14 @@ const releaseYearFiltering = {
 };
 
 const HomePage: React.FC = () => {
-  const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("discover", getMovies);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
+    ["discover", currentPage],
+    () => getMovies(currentPage),
+    {
+      keepPreviousData: true, // Keep previous data while loading new data
+    }
+  );
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering,releaseYearFiltering]
@@ -107,6 +115,11 @@ const HomePage: React.FC = () => {
         releaseYearFilter= {filterValues[2].value}
         sortBy={sortBy} 
         onSortButtonClick={handleSortButtonClick}
+      />
+            <Pagination
+        currentPage={currentPage}
+        totalPages={data?.total_pages || 1}
+        onPageChange={setCurrentPage}
       />
     </>
   );
