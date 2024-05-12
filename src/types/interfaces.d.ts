@@ -184,8 +184,11 @@ export interface BaseMovie {
 
 interface FantasyMovie {
   title: string;
-  story: string;
-  image: File;
+  overview: string;
+  genres: string; // Assuming genres are represented as an array of strings
+  releaseDate: string; // Date format (e.g., "YYYY-MM-DD")
+  runtime: number; // Runtime in minutes
+  productionCompanies: string;
 }
 
 

@@ -1,119 +1,106 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
-import Button from "@mui/material/Button";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import Snackbar from "@mui/material/Snackbar";
+import { Snackbar, Typography } from "@mui/material";
 import Alert from "@mui/material/Alert";
+import { FantasyMovie } from "../../types/interfaces";
+import styles from "../reviewForm/style";
+import { useNavigate } from "react-router-dom";
+import { SubmitHandler } from "react-hook-form";
 
-const FantasyMovieForm: React.FC = () => {
-  const {
-    control,
-    handleSubmit,
-    reset,
-  } = useForm();
+interface FantasyMovieFormProps {
+  movieDetails: FantasyMovie;
+  handleChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleSubmit: SubmitHandler<FantasyMovie>;
+}
 
+const FantasyMovieForm: React.FC<FantasyMovieFormProps> = ({
+  movieDetails,
+  handleChange,
+  handleSubmit
+}) => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleSnackClose = () => {
     setOpen(false);
+    navigate("/");
   };
-
-  const onSubmit: SubmitHandler<any> = () => {
-    // Handle form submission (e.g., send data to server)
-    setOpen(true); // Show success message
-    // Reset form
-    reset({
-      title: "",
-      story: "",
-      poster: "",
-    });
+   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    handleSubmit(e as unknown as FantasyMovie);
+    setOpen(true)
   };
 
   return (
-    <Box>
-      <Typography component="h2" variant="h3">
-        Write a Fantasy Movie
-      </Typography>
+    <form onSubmit={handleFormSubmit} style={{ width: "70%", margin: "0 auto" }}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        <TextField
+          label="Title"
+          variant="outlined"
+          name="title"
+          value={movieDetails.title}
+          onChange={handleChange}
+        />
+        <TextField
+          label="Overview"
+          variant="outlined"
+          multiline
+          rows={4}
+          name="overview"
+          value={movieDetails.overview}
+          onChange={handleChange}
+        />
+        <TextField
+          label="Genres"
+          variant="outlined"
+          name="genres"
+          value={movieDetails.genres}
+          onChange={handleChange}
+        />
+        <TextField
+          label="Release Date"
+          variant="outlined"
+          type="date"
+          name="releaseDate"
+          value={movieDetails.releaseDate}
+          onChange={handleChange}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <TextField
+          label="Runtime"
+          variant="outlined"
+          name="runtime"
+          value={movieDetails.runtime.toString()} // Convert to string
+          onChange={handleChange}
+        />
+        <TextField
+          label="Production Companies"
+          variant="outlined"
+          name="productionCompanies"
+          value={movieDetails.productionCompanies}
+          onChange={handleChange}
+        />
+        <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column", gap: "20px" }}>
+          <Button variant="contained" color="primary" type="submit">
+            Submit
+          </Button>
+        </Box>
+      </Box>
       <Snackbar
+        sx={styles.root}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
         open={open}
         onClose={handleSnackClose}
       >
         <Alert severity="success" variant="filled" onClose={handleSnackClose}>
-          <Typography variant="h4">Fantasy movie submitted successfully!</Typography>
+          <Typography variant="h4">Thank you for submitting a review</Typography>
         </Alert>
       </Snackbar>
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <Controller
-          name="title"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              required
-              id="title"
-              label="Title"
-            />
-          )}
-        />
-        <Controller
-          name="story"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              required
-              multiline
-              minRows={10}
-              id="story"
-              label="Story"
-            />
-          )}
-        />
-        <Controller
-          name="poster"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              required
-              id="poster"
-              label="Poster URL"
-            />
-          )}
-        />
-        <Box>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            sx={{ marginRight: 2 }}
-          >
-            Submit
-          </Button>
-          <Button
-            type="reset"
-            variant="contained"
-            color="secondary"
-            onClick={() => reset()}
-          >
-            Reset
-          </Button>
-        </Box>
-      </form>
-    </Box>
+    </form>
   );
 };
 
