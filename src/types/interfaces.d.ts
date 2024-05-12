@@ -180,3 +180,10 @@ export interface BaseMovie {
 }
 
 
+interface FantasyMovie {
+  title: string;
+  story: string;
+  image: File;
+}
+
+
