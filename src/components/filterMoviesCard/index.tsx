@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect } from "react";
 import { FilterOption,GenreData } from "../../types/interfaces"; 
 import { SelectChangeEvent } from "@mui/material";
 import Card from "@mui/material/Card";
@@ -34,9 +34,12 @@ interface FilterMoviesCardProps {
   onUserInput: (f: FilterOption, s: string)  => void;
   titleFilter: string;
   genreFilter: string;
+  releaseYearFilter :string;
 }
 const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
   const { data, error, isLoading, isError } = useQuery<GenreData, Error>("genres", getGenres);
+
+
 
   if (isLoading) {
     return <Spinner />;
@@ -61,6 +64,14 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
   const handleGenreChange = (e: SelectChangeEvent) => {
     handleChange(e, "genre", e.target.value)
   };
+
+
+  const handleReleaseYearChange = (e: SelectChangeEvent) => {
+    handleChange(e, "releaseYear", e.target.value);
+  };
+
+
+  
 
   return (
     <>
@@ -95,7 +106,27 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
               );
             })}
           </Select>
-        </FormControl>
+          </FormControl>
+          <FormControl sx={styles.formControl}>
+          <InputLabel id="release-year-label">Release Year</InputLabel>
+            <Select
+              labelId="release-year-label"
+              id="release-year-select"
+              value={props.releaseYearFilter}
+              onChange={handleReleaseYearChange}
+            >
+              <MenuItem value="">All</MenuItem>
+              {/* Generate release year options dynamically */}
+              {Array.from({ length: 50 }, (_, index) => {
+                const year = new Date().getFullYear() - index;
+                return (
+                  <MenuItem key={year} value={year.toString()}>
+                    {year}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+       </FormControl>
       </CardContent>
     </Card>
     <Card sx={styles.root} variant="outlined">

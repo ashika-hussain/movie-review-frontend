@@ -5,6 +5,7 @@ import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,
   genreFilter,
+  releaseYearFilter,
 } from "../components/movieFilterUI";
 import { DiscoverMovies, ListedMovie } from "../types/interfaces";
 import { useQuery } from "react-query";
@@ -22,11 +23,17 @@ const genreFiltering = {
   condition: genreFilter,
 };
 
+const releaseYearFiltering = {
+  name: "releaseYear",
+  value: (new Date()).getFullYear().toLocaleString(),
+  condition: releaseYearFilter,
+};
+
 const HomePage: React.FC = () => {
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("discover", getMovies);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
-    [titleFiltering, genreFiltering]
+    [titleFiltering, genreFiltering,releaseYearFiltering]
   );
 
   if (isLoading) {
@@ -40,12 +47,23 @@ const HomePage: React.FC = () => {
 
   const changeFilterValues = (type: string, value: string) => {
     const changedFilter = { name: type, value: value };
-    const updatedFilterSet =
-      type === "title"
-        ? [changedFilter, filterValues[1]]
-        : [filterValues[0], changedFilter];
-    setFilterValues(updatedFilterSet);
-  };
+
+  const updatedFilterSet =  [...filterValues];
+  switch (type) {
+    case "title":
+      updatedFilterSet[0] = changedFilter;
+      break;
+    case "genre":
+      updatedFilterSet[1] = changedFilter;
+      break;
+    case "releaseYear":
+      updatedFilterSet[2] = changedFilter;
+      break;
+    default:
+      break;
+  }
+  setFilterValues(updatedFilterSet);
+}
 
   const movies = data ? data.results : [];
   const displayedMovies = filterFunction(movies);
@@ -65,6 +83,7 @@ const HomePage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+        releaseYearFilter= {filterValues[2].value}
       />
     </>
   );

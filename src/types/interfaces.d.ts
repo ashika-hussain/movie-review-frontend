@@ -44,7 +44,7 @@ export interface BaseMovie {
     genre_ids: number[];
   }
 
-  export type FilterOption = "title" | "genre";
+  export type FilterOption = "title" | "genre" | "releaseYear";
 
   export interface MovieListPageTemplateProps {
     movies: ListedMovie[];
