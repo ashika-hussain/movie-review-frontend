@@ -1,30 +1,35 @@
-# React + TypeScript + Vite
+# Movie Review App React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Name: ASHIKA HUSSAIN
 
-Currently, two official plugins are available:
+Video demonstration: https://youtu.be/toe4PK-_o6c
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This repository contains an implementation of a React App  for handling and viewing TMDB API.
 
-## Expanding the ESLint configuration
+Features:
++Movie List/Movie Details: Displayed a list of movies with basic details and allowed users to view detailed information about each movie.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
++Series List/Series Details: Similar to movies, provided a list of TV series with basic details and detailed information for each series.
 
-- Configure the top-level `parserOptions` property like this:
++Upcoming Movies List: Showcased upcoming movies with release dates.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
++Trending Movies App: Highlighted trending movies based on popularity or other criteria.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
++Movie Review Add Form: Enabled users to submit reviews for movies.
+
++Series Review Add Form: Allowed users to submit reviews for TV series.
+
++Add Movie Favourites: Enabled users to mark movies as favorites for quick access.
+
++Add Series Favourites: Similar to movies, allowed users to mark TV series as favorites.
+
++Filtering on Series using Genres/Release Year: Provided filtering options for TV series based on genres and release years.
+
++Sort movies by name: Allowed users to sort the movie list alphabetically by name.
+
++Pagination for movies: Implemented pagination for the movie list to improve performance and user experience.
+
++S3 bucket and CloudFront distribution for the MoviesReact app: Deployed the frontend of the app using AWS S3 bucket and CloudFront for content delivery and scalability.
+
++React Query Pagination Support: Utilized React Query to handle pagination efficiently on the frontend.
+
