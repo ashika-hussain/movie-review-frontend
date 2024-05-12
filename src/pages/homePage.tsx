@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { getMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
@@ -25,7 +25,7 @@ const genreFiltering = {
 
 const releaseYearFiltering = {
   name: "releaseYear",
-  value: (new Date()).getFullYear().toLocaleString(),
+  value: "0",
   condition: releaseYearFilter,
 };
 
@@ -36,6 +36,7 @@ const HomePage: React.FC = () => {
     [titleFiltering, genreFiltering,releaseYearFiltering]
   );
 
+  const [sortBy, setSortBy] = useState(""); 
   if (isLoading) {
     return <Spinner />;
   }
@@ -44,6 +45,25 @@ const HomePage: React.FC = () => {
     return <h1>{error.message}</h1>;
   }
 
+  // Function to handle sort button click
+  const handleSortButtonClick = (sortByValue: string) => {
+    if (sortBy === sortByValue) {
+      setSortBy("");
+    } else {
+      setSortBy(sortByValue);
+    }
+  };
+
+  const sortMovies = (movies: ListedMovie[]): ListedMovie[] => {
+    switch (sortBy) {
+      case "name":
+        return [...movies].sort((a, b) => a.title.localeCompare(b.title));
+      case "release_date":
+        return [...movies].sort((a, b) => a.release_date.localeCompare(b.release_date));
+      default:
+        return movies;
+    }
+  };  
 
   const changeFilterValues = (type: string, value: string) => {
     const changedFilter = { name: type, value: value };
@@ -66,7 +86,8 @@ const HomePage: React.FC = () => {
 }
 
   const movies = data ? data.results : [];
-  const displayedMovies = filterFunction(movies);
+  let displayedMovies = filterFunction(movies);
+  displayedMovies = sortMovies(displayedMovies)
 
 
 
@@ -84,6 +105,8 @@ const HomePage: React.FC = () => {
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
         releaseYearFilter= {filterValues[2].value}
+        sortBy={sortBy} 
+        onSortButtonClick={handleSortButtonClick}
       />
     </>
   );

@@ -18,7 +18,7 @@ const styles = {
     },
 };
 
-const MovieReviews: React.FC<MovieT> = (props) => {y // Use the MovieT type in the function signature
+const MovieReviews: React.FC<MovieT> = (props) => {// Use the MovieT type in the function signature
     const [reviews, setReviews] = useState([]);
 
     const movie = props;

@@ -3,6 +3,7 @@ import FilterCard from "../filterMoviesCard";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import { ListedMovie } from "../../types/interfaces";
+import SortButton from "../sortComponent";
 
 export const titleFilter = function (movie: ListedMovie, value: string) {
   return movie.title.toLowerCase().search(value.toLowerCase()) !== -1;
@@ -36,10 +37,12 @@ interface MovieFilterUIProps {
   titleFilter: string;
   genreFilter: string;
   releaseYearFilter : string;
+  sortBy: string;
+  onSortButtonClick: (sortBy: string) => void;
 }
 
 
-const MovieFilterUI: React.FC<MovieFilterUIProps> = ({ onFilterValuesChange, titleFilter, genreFilter , releaseYearFilter}) => {
+const MovieFilterUI: React.FC<MovieFilterUIProps> = ({ onFilterValuesChange, titleFilter, genreFilter , releaseYearFilter, sortBy, onSortButtonClick}) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -63,6 +66,7 @@ const MovieFilterUI: React.FC<MovieFilterUIProps> = ({ onFilterValuesChange, tit
           genreFilter={genreFilter}
           releaseYearFilter={releaseYearFilter}
         />
+         <SortButton sortBy={sortBy} onClick={() => onSortButtonClick("name")} />
       </Drawer>
     </>
   );

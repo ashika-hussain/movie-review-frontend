@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect } from "react";
+import React, { ChangeEvent } from "react";
 import { FilterOption,GenreData } from "../../types/interfaces"; 
 import { SelectChangeEvent } from "@mui/material";
 import Card from "@mui/material/Card";
@@ -115,7 +115,7 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
               value={props.releaseYearFilter}
               onChange={handleReleaseYearChange}
             >
-              <MenuItem value="">All</MenuItem>
+              <MenuItem value="0">All</MenuItem>
               {/* Generate release year options dynamically */}
               {Array.from({ length: 50 }, (_, index) => {
                 const year = new Date().getFullYear() - index;
