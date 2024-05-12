@@ -14,8 +14,10 @@ Features:
 + Upcoming Movies List: Showcased upcoming movies with release dates.
 
 + Trending Movies App: Highlighted trending movies based on popularity or other criteria.
-+  Cast List of Movies : Highlighted a cast list of movies
-+  Click on Cast list to View Details of an actor
+  
++  Cast List of Movies: Highlighted a cast list of movies
+  
++  Click on the Cast list to View Details of an actor
 
 + Movie Review Add Form: Enabled users to submit reviews for movies.
 
@@ -31,7 +33,7 @@ Features:
 
 + Pagination for movies: Implemented pagination for the movie list to improve performance and user experience.
 
-+S3 bucket and CloudFront distribution for the MoviesReact app: Deployed the frontend of the app using AWS S3 bucket and CloudFront for content delivery and scalability.
++ S3 bucket and CloudFront distribution for the MoviesReact app: Deployed the frontend of the app using AWS S3 bucket and CloudFront for content delivery and scalability.
 
-+React Query Pagination Support: Utilized React Query to handle pagination efficiently on the frontend.
++ React Query Pagination Support: Utilized React Query to handle pagination efficiently on the frontend.
 
