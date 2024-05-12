@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import PageTemplate from "../components/templateMovieListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
@@ -6,6 +6,7 @@ import { getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
+  releaseYearFilter,
   titleFilter
 } from "../components/movieFilterUI";
 import { MovieT } from "../types/interfaces";
@@ -31,13 +32,28 @@ export const genreFiltering = {
   },
 };
 
+const releaseYearFiltering = {
+  name: "releaseYear",
+  value: "0",
+  condition: releaseYearFilter,
+};
+
 const FavouriteMoviesPage: React.FC = () => {
   const { favourites: movieIds } = useContext(MoviesContext);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
-    [titleFiltering, genreFiltering]
+    [titleFiltering, genreFiltering,releaseYearFiltering]
   );
 
+  const [sortBy, setSortBy] = useState("");
+
+  const handleSortButtonClick = (sortByValue: string) => {
+    if (sortBy === sortByValue) {
+      setSortBy("");
+    } else {
+      setSortBy(sortByValue);
+    }
+  };
   // Create an array of queries and run them in parallel.
   const favouriteMovieQueries = useQueries(
     movieIds.map((movieId) => {
@@ -47,6 +63,8 @@ const FavouriteMoviesPage: React.FC = () => {
       };
     })
   );
+
+
    // Check if any of the parallel queries is still loading.
    const isLoading = favouriteMovieQueries.find((m) => m.isLoading === true);
 
@@ -75,8 +93,8 @@ const FavouriteMoviesPage: React.FC = () => {
         action={(movie) => {
           return (
             <>
-              <RemoveFromFavourites genre_ids={[]} {...movie} />
-              <WriteReview genre_ids={[]} {...movie} isSeries= {false}/>
+              <RemoveFromFavourites {...movie} />
+              <WriteReview  {...movie} isSeries={false}/>
             </>
           );
         }}
@@ -85,6 +103,9 @@ const FavouriteMoviesPage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+        releaseYearFilter= {filterValues[2].value}
+        sortBy={sortBy} 
+        onSortButtonClick={handleSortButtonClick}
       />
     </>
   );

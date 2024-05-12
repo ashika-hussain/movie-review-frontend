@@ -6,10 +6,12 @@ import { Link } from "react-router-dom";
 
 type MediaType = ListedMovie | ListedSeries;
 
-const WriteReviewIcon:React.FC<MediaType & { isSeries: boolean }> = (item,isSeries) => {
+const WriteReviewIcon:React.FC<MediaType & { isSeries: boolean }> = (item) => {
+
+  
   return (
     <Link
-    to={isSeries ? "/series/reviews/form" : "/reviews/form"}
+    to={item.isSeries ? "/series/reviews/form" : "/reviews/form"}
     state={{
         itemId: item.id
       }}

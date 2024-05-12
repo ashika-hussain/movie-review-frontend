@@ -20,6 +20,8 @@ const genreFiltering = {
   condition: genreFilter,
 };
 
+
+
 const TvSeriesPage: React.FC = () => {
   const { data, error, isLoading, isError } = useQuery<DiscoverSeries, Error>("tvseries", getTvSeries);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
@@ -62,8 +64,8 @@ const TvSeriesPage: React.FC = () => {
       <SeriesFilterUI
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
-        genreFilter={filterValues[1].value}
-      />
+        genreFilter={filterValues[1].value} 
+        releaseYearFilter={""}      />
     </>
   );
 };

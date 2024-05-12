@@ -29,10 +29,11 @@ interface SeriesFilterUIProps {
   onFilterValuesChange: (f: string, s: string) => void;
   titleFilter: string;
   genreFilter: string;
+  releaseYearFilter : string;
 }
 
 
-const SeriesFilterUI: React.FC<SeriesFilterUIProps> = ({ onFilterValuesChange, titleFilter, genreFilter }) => {
+const SeriesFilterUI: React.FC<SeriesFilterUIProps> = ({ onFilterValuesChange, titleFilter, genreFilter,releaseYearFilter }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
@@ -54,6 +55,7 @@ const SeriesFilterUI: React.FC<SeriesFilterUIProps> = ({ onFilterValuesChange, t
           onUserInput={onFilterValuesChange}
           titleFilter={titleFilter}
           genreFilter={genreFilter}
+          releaseYearFilter= {releaseYearFilter}
         />
       </Drawer>
     </>

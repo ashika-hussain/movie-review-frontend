@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface BaseMovie {
     title: string;
     budget: number;
@@ -49,7 +51,7 @@ export interface BaseMovie {
   export interface MovieListPageTemplateProps {
     movies: ListedMovie[];
     title: string;
-    action: (m: MovieT) => void;
+    action: (m: ListedMovie) => ReactNode;
   }
   export interface Review{
     id: string;
@@ -114,7 +116,7 @@ export interface BaseMovie {
   export interface SeriesListPageTemplateProps {
     series: ListedSeries[];
     title: string;
-    action: (m: SeriesT) => void;
+    action: (m: ListedSeries) => ReactNode;
   }
 
 
