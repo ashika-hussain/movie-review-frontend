@@ -9,11 +9,13 @@ This repository contains an implementation of a React App  for handling and view
 Features:
 + Movie List/Movie Details: Displayed a list of movies with basic details and allowed users to view detailed information about each movie.
 
-+ Series List/Series Details: Similar to movies, provided a list of TV series with basic details and detailed information for each series.
++ Series List/Series Details: Similar to movies, provide a list of TV series with basic details and detailed information for each series.
 
 + Upcoming Movies List: Showcased upcoming movies with release dates.
 
 + Trending Movies App: Highlighted trending movies based on popularity or other criteria.
++  Cast List of Movies : Highlighted a cast list of movies
++  Click on Cast list to View Details of an actor
 
 + Movie Review Add Form: Enabled users to submit reviews for movies.
 
