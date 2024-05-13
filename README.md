@@ -2,11 +2,11 @@
 
 Name: ASHIKA HUSSAIN
 
-Video demonstration: https://youtu.be/toe4PK-_o6c
+Video demonstration:  https://youtu.be/WO-CAMCcEWQ
 
-This repository contains an implementation of a React App  for handling and viewing TMDB API.
+This repository contains an implementation of the Movie Fans Web Application using the ReactJS library. 
 
-Features:
+# Features:
 + Movie List/Movie Details: Displayed a list of movies with basic details and allowed users to view detailed information about each movie.
 
 + Series List/Series Details: Similar to movies, provide a list of TV series with basic details and detailed information for each series.
@@ -35,5 +35,34 @@ Features:
 
 + S3 bucket and CloudFront distribution for the MoviesReact app: Deployed the frontend of the app using AWS S3 bucket and CloudFront for content delivery and scalability.
 
-+ React Query Pagination Support: Utilized React Query to handle pagination efficiently on the frontend.
+# API endpoints
+
++ Fetches a list of movies based on the provided page number: /discover/movie
++ Fetches details of a specific movie by its ID: /movie/{id}
++ Fetches a list of movie genres: /genre/movie/list
++ Fetches images (posters) of a specific movie by its ID: /movie/{id}/images
++ Fetches reviews of a specific movie by its ID: /movie/{id}/reviews
++ Fetches a list of upcoming movies: /movie/upcoming
++ Fetches a list of popular TV series: /tv/popular
++ Fetches details of a specific TV series by its ID: /tv/{id}
++ Fetches images (posters) of a specific TV series by its ID: /tv/{id}/images
++ Fetches a list of trending movies of the week: /trending/movie/week
++ Fetches the cast members of a specific movie by its ID: /movie/{id}/credits
++ Fetches reviews of a specific TV series by its ID: /tv/{id}/reviews
++ Fetches details of a specific actor by their ID: /person/{id}
+
+# Routing
+
++ /series/:id: Displays details of a specific TV series.
++ /movies/trending: Shows trending movies of the week.
++ /series/favourites: Lists favorite TV series.
++ /series/reviews/form: Provides a form for writing TV series reviews.
++ /series/: Lists various TV series.
++ /reviews/form: Offers a form for writing movie reviews.
++ /movies/upcoming: Lists upcoming movies.
++ /reviews/:id: Displays details of a review.
++ /movies/favourites: Lists favorite movies.
+/actor/:id: Displays details of an actor.
+/fantasymovie: Provides a page for writing a fantasy movie script.
+/movies/:id: Displays details of a specific movie
 
